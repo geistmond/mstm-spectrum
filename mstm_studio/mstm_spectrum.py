@@ -245,19 +245,19 @@ class SPR(object):
                                               'mstm_l%.0f.out' % (l * 1000)),
                                  'r')
                     while True:
-                        line = inFID.readline()
+                        line = inFID.readline(5_000_000)
                         if 'scattering matrix elements' in line:
                             break
                         elif 'parallel total ext, abs, scat efficiencies' in line:
                             values = map(float,
-                                         inFID.readline().strip().split())
+                                         inFID.readline(5_000_000).strip().split())
                             values = list(values)
                             self.extinction_par.append(float(values[0]))
                             self.absorbtion_par.append(float(values[1]))
                             self.scattering_par.append(float(values[2]))
                         elif 'perpendicular total ext' in line:
                             values = map(float,
-                                         inFID.readline().strip().split())
+                                         inFID.readline(5_000_000).strip().split())
                             values = list(values)
                             self.extinction_ort.append(float(values[0]))
                             self.absorbtion_ort.append(float(values[1]))
@@ -281,12 +281,12 @@ class SPR(object):
                     fnl = os.path.join(tmpdir, 'mstm_l%.0f.out' % (lam * 1000))
                     with open(fnl, 'r') as fout:
                         while True:
-                            line = fout.readline()
+                            line = fout.readline(5_000_000)
                             if 'scattering matrix elements' in line:
                                 break
                             elif 'total ext, abs, scat efficiencies' in line:
                                 values = map(float,
-                                             fout.readline().strip().split())
+                                             fout.readline(5_000_000).strip().split())
                                 values = list(values)  # python3 is evil
                                 self.extinction.append(float(values[0]))
                                 self.absorbtion.append(float(values[1]))
