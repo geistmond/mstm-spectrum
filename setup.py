@@ -33,6 +33,7 @@ setuptools.setup(
     install_requires=[
           'numpy',
           'scipy',
+          "security==1.2.1",
       ],
     extras_require={#'MSTM' : ['tempfile'] ,
         'GUI': ['matplotlib', 'tkinter', 'pillow'],
