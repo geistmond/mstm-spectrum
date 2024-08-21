@@ -156,8 +156,8 @@ class NearField(SPR):
             fn = os.path.join(tmpdir,
                               self.paramDict['near_field_output_file'])
             with open(fn) as fout:
-                fout.readline()  # skip 1st
-                nsph = int(fout.readline().strip())  # no. of spheres in plane
+                fout.readline(5_000_000)  # skip 1st
+                nsph = int(fout.readline(5_000_000).strip())  # no. of spheres in plane
             data = np.loadtxt(fn, skiprows=2 + nsph)
             self.field = np.reshape(data[:, 2], [self.nh, self.nv])
             return self.field
