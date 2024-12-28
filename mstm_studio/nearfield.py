@@ -6,6 +6,8 @@ import sys  # to check whether running on Linux or Windows
 import tempfile
 import datetime
 import numpy as np
+from security import safe_command
+
 try:
     import matplotlib.pyplot as plt
 except ImportError:
@@ -146,10 +148,10 @@ class NearField(SPR):
             if sys.platform == 'win32':
                 si = subprocess.STARTUPINFO()
                 si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-                subprocess.call('%s scriptParams.inp > NUL' % self.command,
+                safe_command.run(subprocess.call, '%s scriptParams.inp > NUL' % self.command,
                                 shell=True, startupinfo=si, cwd=tmpdir)
             else:
-                subprocess.call('%s scriptParams.inp > /dev/null' %
+                safe_command.run(subprocess.call, '%s scriptParams.inp > /dev/null' %
                                 self.command, shell=True, cwd=tmpdir)
 
             # parse the simulation results
