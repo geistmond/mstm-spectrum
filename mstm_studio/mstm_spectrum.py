@@ -227,10 +227,10 @@ class SPR(object):
                 si = subprocess.STARTUPINFO()
                 si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
                 subprocess.call('%s scriptParams.inp > NUL' % self.command,
-                                shell=True, startupinfo=si, cwd=tmpdir)
+                                shell=False, startupinfo=si, cwd=tmpdir)
             else:
                 subprocess.call('%s scriptParams.inp > /dev/null' % self.command,
-                                shell=True, cwd=tmpdir)
+                                shell=False, cwd=tmpdir)
 
             # parse the simulation results
             if self.paramDict['fixed_or_random_orientation'] == 0:  # fixed orientation
